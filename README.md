@@ -4,6 +4,7 @@
   <br><br>
   <img src="samfonts.png" alt="SamFonts App Screenshot" width="350">
 </p>
+
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Platform](https://img.shields.io/badge/Platform-Android_9.0%2B-brightgreen.svg)]()
 [![Requires](https://img.shields.io/badge/Requires-Shizuku-orange.svg)]()
