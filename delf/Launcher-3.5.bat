@@ -1,1 +1,0 @@
-start minify.exe jsm.txt
